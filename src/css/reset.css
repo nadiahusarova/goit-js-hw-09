@@ -14,14 +14,21 @@ p:last-child {
 }
 
 ul {
-  margin: 0;
+  margin-bottom: 0;
   padding: 0;
+  list-style: none;
+}
+
+li{
   list-style: none;
 }
 
 a {
   color: currentColor;
   text-decoration: none;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 button {
@@ -32,4 +39,8 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+body{
+  font-family: "Montserrat", sans-serif;
 }
