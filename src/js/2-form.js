@@ -3,8 +3,15 @@ const formRef = document.querySelector('form');
 
 formRef.addEventListener('input', addLocalStorage);
 function addLocalStorage() {
-    const objMessage = JSON.stringify({ email: formRef.elements.email.value, message: formRef.elements.message.value });
-    localStorage.setItem(KEY_MESSAGE, objMessage);    
+    const email = formRef.elements.email.value;
+    const message = formRef.elements.message.value;
+
+    if (email && message) {
+        const objMessage = JSON.stringify({ email, message });
+        localStorage.setItem(KEY_MESSAGE, objMessage);    
+    } else {
+        console.log("Поля email та message мають бути заповнені!");
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,8 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
 formRef.addEventListener('submit', removeLocalStorage);
 function removeLocalStorage(event) {
     event.preventDefault(); 
-    console.log(JSON.parse(localStorage.getItem(KEY_MESSAGE)));
-    localStorage.removeItem(KEY_MESSAGE);
-    formRef.elements.email.value = '';
-    formRef.elements.message.value = '';
+
+    const email = formRef.elements.email.value;
+    const message = formRef.elements.message.value;
+    if (email && message) {
+        console.log(JSON.parse(localStorage.getItem(KEY_MESSAGE)));
+        localStorage.removeItem(KEY_MESSAGE);
+        formRef.elements.email.value = '';
+        formRef.elements.message.value = '';
+    } else {
+        console.log("Поля email та message мають бути заповнені перед видаленням!");
+    }
 }
