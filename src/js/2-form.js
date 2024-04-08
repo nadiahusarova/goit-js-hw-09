@@ -6,12 +6,17 @@ function addLocalStorage() {
     const email = formRef.elements.email.value;
     const message = formRef.elements.message.value;
 
-    if (email && message) {
-        const objMessage = JSON.stringify({ email, message });
-        localStorage.setItem(KEY_MESSAGE, objMessage);    
-    } else {
-        console.log("Поля email та message мають бути заповнені!");
+    const objMessage = JSON.parse(localStorage.getItem(KEY_MESSAGE)) || {};
+
+    if (email) {
+        objMessage.email = email;
     }
+
+    if (message) {
+        objMessage.message = message;
+    }
+
+    localStorage.setItem(KEY_MESSAGE, JSON.stringify(objMessage));    
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,8 +31,11 @@ function removeLocalStorage(event) {
 
     const email = formRef.elements.email.value;
     const message = formRef.elements.message.value;
-    if (email && message) {
-        console.log(JSON.parse(localStorage.getItem(KEY_MESSAGE)));
+    
+    const objMessage = JSON.parse(localStorage.getItem(KEY_MESSAGE)) || {};
+
+    if (objMessage.email && objMessage.message) {
+        console.log(objMessage);
         localStorage.removeItem(KEY_MESSAGE);
         formRef.elements.email.value = '';
         formRef.elements.message.value = '';
